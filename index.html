@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<title>Farewell, Rinu — from the PSD team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500;1,9..144,900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --plum:#2c1338; --plum2:#4a1d5c;
+  --magenta:#ff4f9a; --marigold:#ffb22e; --teal:#19c2ae;
+  --paper:#fff7ec; --ink:#2a1330; --ink-soft:#6b4a73;
+  --serif:"Fraunces", Georgia, "Times New Roman", serif;
+  --sans:"Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;font-family:var(--sans);color:#fff;overflow:hidden;-webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(120% 90% at 12% 8%, rgba(255,79,154,.40), transparent 55%),
+    radial-gradient(110% 80% at 92% 18%, rgba(255,178,46,.34), transparent 52%),
+    radial-gradient(120% 100% at 78% 96%, rgba(25,194,174,.30), transparent 55%),
+    linear-gradient(160deg, var(--plum) 0%, var(--plum2) 100%);
+  background-attachment:fixed;
+}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.05;
+  background-image:radial-gradient(#fff 1px, transparent 1.4px);background-size:22px 22px;mix-blend-mode:screen;}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;
+  padding:max(14px,env(safe-area-inset-top)) 18px 10px;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.72);}
+.topbar b{font-weight:800;color:#fff}
+.counter{font-variant-numeric:tabular-nums;font-weight:600}
+
+.stage{position:fixed;inset:0;overflow:hidden;z-index:5}
+.track{display:flex;height:100%;will-change:transform;transition:transform .55s cubic-bezier(.22,.61,.36,1);}
+.slide{flex:0 0 100%;height:100%;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-y;}
+.slide::-webkit-scrollbar{width:0}
+/* min-height wrapper centers when content fits, allows full scroll when it doesn't */
+.slide-in{min-height:100%;display:flex;align-items:center;justify-content:center;padding:74px 20px 104px;}
+@media (prefers-reduced-motion:reduce){.track{transition:none}}
+
+.card{width:min(92vw,520px);display:flex;flex-direction:column;align-items:center;gap:16px;}
+
+.frame{position:relative;background:var(--paper);padding:12px 12px 14px;border-radius:16px;
+  box-shadow:0 22px 50px -18px rgba(0,0,0,.6);transform:rotate(var(--tilt,-1.4deg));}
+.frame::before{content:"";position:absolute;top:-12px;left:50%;width:96px;height:26px;
+  transform:translateX(-50%) rotate(-3deg);background:linear-gradient(180deg,rgba(255,178,46,.85),rgba(255,178,46,.6));
+  border-radius:3px;box-shadow:0 3px 8px rgba(0,0,0,.18);}
+.frame img,.frame video{display:block;border-radius:9px;background:#0c0610;
+  max-width:min(82vw,460px);max-height:56dvh;width:auto;height:auto;object-fit:contain;}
+.frame video{max-height:60dvh}
+.caption{align-self:center;background:#fff;color:var(--ink);font-weight:700;font-size:1.02rem;line-height:1.25;
+  padding:9px 16px;border-radius:999px;transform:rotate(1deg);box-shadow:0 8px 20px -10px rgba(0,0,0,.5);max-width:88vw;text-align:center;}
+
+.vwrap{position:relative}
+.vlabel{position:absolute;top:-14px;left:50%;transform:translateX(-50%) rotate(-2deg);z-index:3;background:var(--magenta);
+  color:#fff;font-weight:800;font-size:.82rem;padding:7px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 8px 20px -8px rgba(0,0,0,.6);}
+.playbtn{position:absolute;inset:0;margin:auto;width:74px;height:74px;border:none;border-radius:50%;
+  background:rgba(255,255,255,.92);color:var(--plum);display:grid;place-items:center;cursor:pointer;z-index:2;
+  box-shadow:0 10px 30px -8px rgba(0,0,0,.7);transition:transform .15s ease;}
+.playbtn:hover{transform:scale(1.06)} .playbtn svg{width:30px;height:30px;margin-left:4px} .playbtn.hide{display:none}
+
+.note{width:min(92vw,560px);background:var(--paper);color:var(--ink);border-radius:22px;
+  padding:30px 26px 26px;box-shadow:0 26px 60px -20px rgba(0,0,0,.6);transform:rotate(var(--tilt,1deg));}
+.note .mark{font-family:var(--serif);font-weight:900;font-size:3.4rem;line-height:.6;color:var(--magenta);display:block;height:.5em}
+.note .open{font-family:var(--serif);font-weight:600;font-size:1.5rem;line-height:1.22;margin:.35em 0 .55em;letter-spacing:-.01em}
+.note .body{font-size:1.02rem;line-height:1.62;color:#4a2f52;white-space:pre-line}
+.note .sign{margin-top:18px;display:flex;align-items:baseline;gap:10px}
+.note .sign .dash{flex:1;height:2px;background:linear-gradient(90deg,var(--marigold),transparent);border-radius:2px}
+.note .sign .name{font-family:var(--serif);font-style:italic;font-weight:900;font-size:1.5rem;color:var(--plum)}
+
+.hero{width:min(92vw,640px);text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px}
+.eyebrow{font-size:.78rem;letter-spacing:.34em;text-transform:uppercase;color:var(--marigold);font-weight:700}
+.hero h1{font-family:var(--serif);font-weight:900;letter-spacing:-.02em;margin:0;font-size:clamp(3rem,15vw,6.4rem);line-height:.92;color:#fff;text-shadow:0 4px 0 rgba(0,0,0,.12);}
+.hero h1 em{font-style:italic;color:var(--marigold);display:block}
+.hero p{margin:0;max-width:30ch;font-size:1.05rem;line-height:1.5;color:rgba(255,255,255,.86)}
+.swipehint{margin-top:6px;font-weight:700;letter-spacing:.04em;color:#fff;display:inline-flex;align-items:center;gap:8px}
+.swipehint .arrow{display:inline-block;animation:nudge 1.4s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+@media (prefers-reduced-motion:reduce){.swipehint .arrow{animation:none}}
+
+.seal{position:relative;width:148px;height:148px}
+.seal svg{width:100%;height:100%;animation:spin 18s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.seal svg{animation:none}}
+.seal text{fill:#fff;font-family:var(--sans);font-weight:800;font-size:11.4px;letter-spacing:2.2px}
+.seal .core{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--serif);font-weight:900;font-size:2.5rem;color:var(--marigold);}
+.contribs{font-size:.92rem;color:rgba(255,255,255,.78);max-width:34ch;line-height:1.7}
+.contribs b{color:#fff;font-weight:700}
+
+.controls{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px max(14px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:14px;}
+.nav{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4);background:rgba(255,255,255,.08);
+  color:#fff;cursor:pointer;display:grid;place-items:center;backdrop-filter:blur(6px);transition:background .15s,transform .15s,opacity .15s;}
+.nav:hover{background:rgba(255,255,255,.2)} .nav:active{transform:scale(.94)} .nav svg{width:20px;height:20px} .nav[disabled]{opacity:.3;cursor:default}
+.bar{flex:1;height:6px;border-radius:999px;background:rgba(255,255,255,.18);overflow:hidden;cursor:pointer}
+.bar .fill{height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--marigold),var(--magenta));transition:width .45s cubic-bezier(.22,.61,.36,1)}
+@media (prefers-reduced-motion:reduce){.bar .fill{transition:none}}
+button:focus-visible,.bar:focus-visible{outline:3px solid var(--marigold);outline-offset:3px}
+canvas#confetti{position:fixed;inset:0;pointer-events:none;z-index:30}
+@media (max-width:380px){.note .open{font-size:1.32rem}.caption{font-size:.94rem}}
+</style>
+</head>
+<body>
+<div class="topbar"><span><b>Farewell</b> · Rinu</span><span class="counter" id="counter">01 / 01</span></div>
+<div class="stage" id="stage"><div class="track" id="track"></div></div>
+<div class="controls">
+  <button class="nav" id="prev" aria-label="Previous slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <div class="bar" id="bar" role="slider" aria-label="Progress" tabindex="0"><div class="fill" id="fill"></div></div>
+  <button class="nav" id="next" aria-label="Next slide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+</div>
+<canvas id="confetti"></canvas>
+<script>
+const SLIDES = [{"type": "cover"}, {"type": "photo", "src": "assets/img_bac7bbc6-0b9b-423c-a221-5b15f331b9a2.jpg", "caption": "The PSD crew (well, most of us)"}, {"type": "photo", "src": "assets/img_e853ae6f-9b8e-4a4d-bf88-b5b31df77b01.jpg", "caption": "Saree-day squad, assembled"}, {"type": "note", "from": "Julianna", "open": "It’s hard to imagine our team without its resident main character.", "body": "Thank you for bringing so much life, sarcasm, laughter, and chaos (the good kind!) into our meetings and everyday conversations. You made even the most ordinary catch-ups entertaining, and work genuinely felt lighter because you were around.\n\nA special thank you for making that team outing happen — it gave us memories we’ll keep talking about for a long time. And your content wizardry deserves its own mention: it always looked effortless, but your creativity and eye for detail were impeccable. You’ve set the bar high.\n\nYou’ll be deeply missed — not just for everything you did, but for who you are. Wishing you a new chapter that’s just as exciting, chaotic, brilliant, and wonderfully Rinu as you’ve always been. ✨"}, {"type": "photo", "src": "assets/img_2715ee93-0596-4b01-91e6-9675575ea7c4.jpg", "caption": "Working very, very hard ✌️"}, {"type": "photo", "src": "assets/img_212f51ff-3ce2-4b5b-b90c-a9c3e0b0e1d2.jpg", "caption": "When the pipeline finally runs"}, {"type": "note", "from": "Ketaki", "open": "My first impression of you was “scary and extremely particular.” I was proven wrong, and how!", "body": "We’ve made memories I’m sure neither of us will forget — from building the first-ever ICS (and struggling with it even today), to the work we did for DoD, to the uncountable conversations about content, training, systems, people, and everything in between. In you I found a reliable guide and a true friend. You have a gift for pushing everyone toward their best without ever badgering — just genuine support.\n\nYou were always my sounding board for my most ridiculous ideas, and your feedback was honest, direct, and immediate. Exactly what I needed. (You know what all I’m talking about ;))\n\nWhat I’ll miss most is your sarcasm, your jokes, and having a partner for all the fun things. I’m really going to miss you terribly. Loads and loads of love and best wishes!"}, {"type": "photo", "src": "assets/img_25812286-2ec3-47c5-a928-2f37abf849ce.jpg", "caption": "Golden hour, golden team"}, {"type": "photo", "src": "assets/img_IMG_1711.jpg", "caption": "The unofficial snack committee"}, {"type": "photo", "src": "assets/img_11b807dd-4614-4b66-833c-ccfaadb55cb2.jpg", "caption": "Festival fits, full marks"}, {"type": "video", "src": "assets/vid_note1.mp4", "poster": "assets/poster_note1.jpg", "label": "A video message 🎥", "caption": "Press play — someone has things to say"}, {"type": "photo", "src": "assets/img_e53c069f-6748-4027-bede-f54168a82f6d.jpg", "caption": "En route to chaos (the good kind)"}, {"type": "photo", "src": "assets/img_83877785-adf0-480c-843b-ed8debf8f4d4.jpg", "caption": "PSD Premier League"}, {"type": "note", "from": "Pranathi", "open": "You were my very first manager here at KPIT — and I couldn’t have asked for a better start.", "body": "Thank you for introducing me to the StrengthsFinder book (I left a note inside it — not sure if you ever found it!). I’ve learned so much from that book and from your learning-and-development expertise.\n\nBut honestly, the vatavaran will not be the same without you. I’m a big fan of your dance and the way you live your life — you bring so much fun, warmth, and positive energy to the workplace.\n\nThank you for being such an incredible manager, mentor, and inspiration. I’m going to miss you, and I wish you all the happiness and success in your next chapter. Let’s definitely stay in touch!"}, {"type": "photo", "src": "assets/img_ddb0512a-ebd6-45d3-bd9c-62bb14e9befb.jpg", "caption": "Hydrated and unbothered"}, {"type": "photo", "src": "assets/img_7d809825-c6d4-4d02-9daf-659090d49604.jpg", "caption": "Festive mode: ON"}, {"type": "video", "src": "assets/vid_note2.mp4", "poster": "assets/poster_note2.jpg", "label": "One more message 🎥", "caption": "Tap play for this one too"}, {"type": "photo", "src": "assets/img_44cbb226-3a3d-4c08-9411-5744cbe8c4fb.jpg", "caption": "Night out, no notes"}, {"type": "photo", "src": "assets/img_IMG_1712.jpg", "caption": "After-hours, off the clock"}, {"type": "photo", "src": "assets/img_1f91da70-4b49-4b8b-a4a4-5c0b2f4e3acb.jpg", "caption": "Sleepover-coded"}, {"type": "note", "from": "Lahari", "open": "Working with you has been a genuine pleasure.", "body": "The energy, humour, and lightness you bring to every day made the workplace so much more enjoyable. Wishing you all the very best for everything that comes next!"}, {"type": "photo", "src": "assets/img_c9409433-7f99-41b5-8c18-bf338c0e159d.jpg", "caption": "Coordinated without even trying"}, {"type": "photo", "src": "assets/img_338cd262-418f-4870-80b0-f05892f7be60.jpg", "caption": "Matching the lawn on purpose"}, {"type": "photo", "src": "assets/img_IMG_1452.jpg", "caption": "Meeting-room selfies > meetings"}, {"type": "note", "from": "Sulakshana", "open": "We may not have worked closely — but your enthusiasm and cheer always stood out.", "body": "I truly admire your genuine, honest nature. Our team will definitely miss such a warm, charming, and joyful person. Wishing you all the very best for everything ahead! ✨"}, {"type": "photo", "src": "assets/img_902fc460-b8e2-4c32-8941-f574b41f3cda.jpg", "caption": "Squad: expanded edition"}, {"type": "photo", "src": "assets/img_e926972c-53e4-4e90-88b8-11053f703cf7.jpg", "caption": "Dinner debrief, off the record"}, {"type": "photo", "src": "assets/img_df7f9be8-ee21-4626-bd71-7bfa07a349ef.jpg", "caption": "Plotting your farewell, probably"}, {"type": "video", "src": "assets/vid_clip.mp4", "poster": "assets/poster_clip.jpg", "label": "One for the road 🎬", "caption": "Some moments need motion"}, {"type": "finale"}];
+const track = document.getElementById('track');
+const tilts = [-1.6, 1.3, -1.0, 1.8, -2.0, 1.1, -1.3, 2.0];
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+const sealSVG = `
+<div class="seal" aria-hidden="true"><svg viewBox="0 0 148 148">
+  <defs><path id="circ" d="M74,74 m-58,0 a58,58 0 1,1 116,0 a58,58 0 1,1 -116,0"/></defs>
+  <text><textPath href="#circ" startOffset="0">★ CERTIFIED MAIN CHARACTER ★ THE PSD TEAM </textPath></text>
+</svg><span class="core">★</span></div>`;
+
+function inner(html){return `<div class="slide"><div class="slide-in">${html}</div></div>`;}
+function slideHTML(s,i){
+  const tilt = tilts[i % tilts.length] + 'deg';
+  if(s.type==='cover') return inner(`<div class="hero">${sealSVG}
+    <span class="eyebrow">The PSD team presents</span>
+    <h1>Farewell,<em>Rinu</em></h1>
+    <p>A little send-off you can swipe through — equal parts mush and mischief. Exactly how you'd want it.</p>
+    <span class="swipehint">Swipe to begin <span class="arrow">→</span></span></div>`);
+  if(s.type==='finale') return inner(`<div class="hero">${sealSVG}
+    <span class="eyebrow">Next chapter, same legend</span>
+    <h1>We'll miss<em>you ✨</em></h1>
+    <p>Go be brilliant, chaotic, and wonderfully you. We'll be here — quoting your jokes and stealing your dance moves.</p>
+    <div class="contribs">With all our love,<br><b>Lahari · Julianna · Pranathi · Ketaki · Sulakshana</b><br>& the rest of the PSD team</div></div>`);
+  if(s.type==='photo') return inner(`<div class="card">
+    <div class="frame" style="--tilt:${tilt}"><img loading="lazy" src="${s.src}" alt="${esc(s.caption)}"></div>
+    <div class="caption">${esc(s.caption)}</div></div>`);
+  if(s.type==='video') return inner(`<div class="card">
+    <div class="frame vwrap" style="--tilt:${tilt}">
+      <span class="vlabel">${esc(s.label)}</span>
+      <video playsinline controls preload="metadata" poster="${s.poster}" data-v><source src="${s.src}" type="video/mp4"></video>
+      <button class="playbtn" aria-label="Play video" data-play><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+    </div><div class="caption">${esc(s.caption)}</div></div>`);
+  if(s.type==='note') return inner(`<div class="note" style="--tilt:${tilt}">
+    <span class="mark">&ldquo;</span>
+    <p class="open">${esc(s.open)}</p>
+    <div class="body">${esc(s.body)}</div>
+    <div class="sign"><span class="dash"></span><span class="name">${esc(s.from)}</span></div></div>`);
+  return '';
+}
+track.innerHTML = SLIDES.map(slideHTML).join('');
+const slideEls = [...track.children];
+const total = SLIDES.length; let idx = 0;
+const counter=document.getElementById('counter'), fill=document.getElementById('fill');
+const prev=document.getElementById('prev'), next=document.getElementById('next');
+const pad=n=>String(n).padStart(2,'0');
+function render(){
+  track.style.transform = `translateX(${-idx*100}%)`;
+  counter.textContent = `${pad(idx+1)} / ${pad(total)}`;
+  fill.style.width = (idx/(total-1))*100 + '%';
+  prev.disabled = idx===0; next.disabled = idx===total-1;
+  track.querySelectorAll('video[data-v]').forEach(v=>{ if(slideEls.indexOf(v.closest('.slide'))!==idx && !v.paused) v.pause(); });
+  slideEls[idx].scrollTop = 0;
+  if(SLIDES[idx].type==='cover'||SLIDES[idx].type==='finale') burst();
+}
+function go(n){ idx=Math.max(0,Math.min(total-1,n)); render(); }
+prev.addEventListener('click',()=>go(idx-1));
+next.addEventListener('click',()=>go(idx+1));
+document.getElementById('bar').addEventListener('click',e=>{const r=e.currentTarget.getBoundingClientRect();go(Math.round(((e.clientX-r.left)/r.width)*(total-1)));});
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='VIDEO') return;
+  if(e.key==='ArrowRight'){e.preventDefault();go(idx+1);}
+  if(e.key==='ArrowLeft'){e.preventDefault();go(idx-1);}
+});
+track.addEventListener('click',e=>{
+  const btn=e.target.closest('[data-play]'); if(!btn) return;
+  const v=btn.previousElementSibling; v.play(); btn.classList.add('hide');
+  v.addEventListener('pause',()=>btn.classList.remove('hide'),{once:true});
+  v.addEventListener('ended',()=>btn.classList.remove('hide'),{once:true});
+});
+// horizontal swipe (vertical scroll stays native via touch-action:pan-y)
+let sx=0,sy=0,down=false;
+track.addEventListener('pointerdown',e=>{ if(e.target.closest('video')) return; sx=e.clientX;sy=e.clientY;down=true; });
+window.addEventListener('pointerup',e=>{ if(!down)return; down=false;
+  const dx=e.clientX-sx, dy=e.clientY-sy;
+  if(Math.abs(dx)>55 && Math.abs(dx)>Math.abs(dy)*1.3) go(idx+(dx<0?1:-1));
+});
+// confetti
+const cv=document.getElementById('confetti'), ctx=cv.getContext('2d');
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+let parts=[],raf=null;
+function size(){cv.width=innerWidth;cv.height=innerHeight;} size(); addEventListener('resize',size);
+const COLORS=['#ff4f9a','#ffb22e','#19c2ae','#ffffff','#c06bff'];
+function burst(){ if(reduce)return;
+  for(let i=0;i<90;i++) parts.push({x:innerWidth/2+(Math.random()-.5)*120,y:innerHeight*0.32,
+    vx:(Math.random()-.5)*9,vy:Math.random()*-11-3,g:0.32+Math.random()*0.15,s:5+Math.random()*7,
+    r:Math.random()*6,vr:(Math.random()-.5)*0.4,c:COLORS[(Math.random()*COLORS.length)|0],life:120+Math.random()*40});
+  if(!raf) loop();
+}
+function loop(){ ctx.clearRect(0,0,cv.width,cv.height);
+  parts.forEach(p=>{p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;
+    ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.6);ctx.restore();});
+  parts=parts.filter(p=>p.life>0&&p.y<cv.height+40);
+  if(parts.length) raf=requestAnimationFrame(loop); else {raf=null;ctx.clearRect(0,0,cv.width,cv.height);}
+}
+render(); setTimeout(burst,400);
+</script>
+</body>
+</html>
